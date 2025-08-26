@@ -2,5 +2,5 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/AL-Go/82c1b5411ec5f36699702c03723175b06ee7ee6e/Actions/settings.schema.json",
   "type": "PTE",
   "templateUrl": "https://github.com/spetersenmsorg/AL-Go-BugBash-Template@main",
-  "templateSha": "33ca6745bab8a93ce445db9d33dbdffe9be03bfb"
+  "templateSha": "f6e4bbaf0e3b38a14079c04b62bcd9a6307f1498"
 }
