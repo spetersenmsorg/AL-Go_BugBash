@@ -1,6 +1,6 @@
 {
-  "$schema": "https://raw.githubusercontent.com/microsoft/AL-Go/82c1b5411ec5f36699702c03723175b06ee7ee6e/Actions/settings.schema.json",
+  "$schema": "https://raw.githubusercontent.com/microsoft/AL-Go-Actions/v7.3/.Modules/settings.schema.json",
   "type": "PTE",
-  "templateUrl": "https://github.com/spetersenmsorg/AL-Go-BugBash-Template@main",
-  "templateSha": "f6e4bbaf0e3b38a14079c04b62bcd9a6307f1498"
+  "templateUrl": "https://github.com/microsoft/AL-Go-PTE@main",
+  "templateSha": "920b9e1a65667be8e6d54cb478fae5f2847aa3ea"
 }
