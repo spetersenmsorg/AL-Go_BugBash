@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/AL-Go/bugsbash/v8.0/Actions/.Modules/settings.schema.json",
   "type": "PTE",
   "templateUrl": "https://github.com/microsoft/AL-Go@bugsbash/v8.0",
-  "templateSha": "444922717a7b006b8b8b7a8c1375b1baf2a2261d"
+  "templateSha": "444922717a7b006b8b8b7a8c1375b1baf2a2261d",
   "DeployTotest": {
     "EnvironmentName": "a32100_p32004_US_26-0"
   }
