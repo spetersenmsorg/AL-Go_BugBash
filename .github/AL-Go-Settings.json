@@ -7,7 +7,7 @@
     "Clean"
   ],
   "DeployTotest": {
-    "BuildMode": "Clean",
+    "BuildMode": "default",
     "EnvironmentName": "a32100_p32004_US_26-0"
   }
 }
