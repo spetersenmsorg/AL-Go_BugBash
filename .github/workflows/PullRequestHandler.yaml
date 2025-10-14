@@ -29,7 +29,7 @@ jobs:
     if: (github.event.pull_request.base.repo.full_name != github.event.pull_request.head.repo.full_name) && (github.event_name != 'pull_request')
     runs-on: windows-latest
     steps:
-      - uses: spetersenms/AL-Go/Actions/VerifyPRChanges@buildModeDeployFix
+      - uses: spetersenms/AL-Go/Actions/VerifyPRChanges@AlDocUseArtifactVersion
 
   Initialization:
     needs: [ PregateCheck ]
@@ -47,7 +47,7 @@ jobs:
       trackALAlertsInGitHub: ${{ steps.SetALCodeAnalysisVar.outputs.trackALAlertsInGitHub }}
     steps:
       - name: Dump Workflow Information
-        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@AlDocUseArtifactVersion
         with:
           shell: powershell
 
@@ -59,13 +59,13 @@ jobs:
 
       - name: Initialize the workflow
         id: init
-        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@AlDocUseArtifactVersion
         with:
           shell: powershell
 
       - name: Read settings
         id: ReadSettings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/ReadSettings@AlDocUseArtifactVersion
         with:
           shell: powershell
           get: shortLivedArtifactsRetentionDays,trackALAlertsInGitHub
@@ -84,7 +84,7 @@ jobs:
 
       - name: Determine Projects To Build
         id: determineProjectsToBuild
-        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@AlDocUseArtifactVersion
         with:
           shell: powershell
           maxBuildDepth: ${{ env.workflowDepth }}
@@ -137,12 +137,12 @@ jobs:
       - name: Process AL Code Analysis Logs
         id: ProcessALCodeAnalysisLogs
         if: (success() || failure())
-        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@AlDocUseArtifactVersion
         with:
           shell: powershell
 
       - name: Upload SARIF file to GitHub
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: (success() || failure()) && (hashFiles(format('{0}/ErrorLogs/output.sarif.json',github.workspace)) != '')
         with:
           sarif_file: '${{ github.workspace }}/ErrorLogs/output.sarif.json'
@@ -158,7 +158,7 @@ jobs:
     steps:
       - name: Pull Request Status Check
         id: PullRequestStatusCheck
-        uses: spetersenms/AL-Go/Actions/PullRequestStatusCheck@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/PullRequestStatusCheck@AlDocUseArtifactVersion
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -166,7 +166,7 @@ jobs:
 
       - name: Finalize the workflow
         id: PostProcess
-        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@AlDocUseArtifactVersion
         if: success() || failure()
         env:
           GITHUB_TOKEN: ${{ github.token }}

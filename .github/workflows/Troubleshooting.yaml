@@ -30,7 +30,7 @@ jobs:
           lfs: true
 
       - name: Troubleshooting
-        uses: spetersenms/AL-Go/Actions/Troubleshooting@buildModeDeployFix
+        uses: spetersenms/AL-Go/Actions/Troubleshooting@AlDocUseArtifactVersion
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}

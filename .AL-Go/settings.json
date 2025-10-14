@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/buildModeDeployFix/Actions/.Modules/settings.schema.json",
+  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/AlDocUseArtifactVersion/Actions/.Modules/settings.schema.json",
   "country": "us",
   "appFolders": [],
   "testFolders": [],
