@@ -3,9 +3,6 @@
   "type": "PTE",
   "templateUrl": "https://github.com/spetersenms/AL-Go@AlDocUseArtifactVersion",
   "templateSha": "da9078e8d2c6fecb68e5867e02419188f0492b6b",
-  "buildModes": [
-    "Clean"
-  ],
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "a32100_p32004_US_26-0"
