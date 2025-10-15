@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/AlDocUseArtifactVersion/Actions/.Modules/settings.schema.json",
   "type": "PTE",
   "templateUrl": "https://github.com/spetersenms/AL-Go@AlDocUseArtifactVersion",
-  "templateSha": "5311825d468d37f60c03d3d047904a128fa121b3",
+  "templateSha": "da9078e8d2c6fecb68e5867e02419188f0492b6b",
   "buildModes": [
     "Clean"
   ],
