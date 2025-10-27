@@ -5,6 +5,6 @@
   "templateSha": "da9078e8d2c6fecb68e5867e02419188f0492b6b",
   "DeployTotest": {
     "BuildMode": "default",
-    "EnvironmentName": "a32100_p32004_US_26-0"
+    "EnvironmentName": "AL-Go-Demo-Test"
   }
 }
