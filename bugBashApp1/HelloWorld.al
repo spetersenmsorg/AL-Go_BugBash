@@ -8,4 +8,8 @@ pageextension 55000 CustomerListExt extends "Customer List"
     begin
         Message('App published: Hello world');
     end;
+
+    var
+        InvalidDate : Date;
+        myLabel: Label 'This is a label with "unescaped quotes"';
 }
