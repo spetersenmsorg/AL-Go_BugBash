@@ -10,6 +10,11 @@
       "justification": "Some justification..."
     },
     {
+      "id": "AA0137",
+      "action": "Error",
+      "justification": "Some other justification..."
+    },
+    {
       "id":  "PTE0004",
       "action":  "Warning"
     }
