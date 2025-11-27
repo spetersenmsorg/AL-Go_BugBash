@@ -13,7 +13,7 @@
   "trackAlAlertsInGitHub": true,
   "customCodeCops": [
     "https://github.com/StefanMaron/BusinessCentral.LinterCop/releases/latest/download/BusinessCentral.LinterCop.dll"
-  ]
+  ],
   "alDoc": {
     "continuousDeployment": true,
     "deployToGitHubPages": false,
