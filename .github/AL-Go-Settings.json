@@ -6,5 +6,13 @@
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
+  },
+  "alDoc": {
+    "continuousDeployment": true,
+    "deployToGitHubPages": false,
+    "groupByProject": false,
+    "includeProjects": [],
+    "excludeProjects": [],
+    "maxReleases": 3
   }
 }
