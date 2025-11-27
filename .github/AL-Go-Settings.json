@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/alAlertsBuildModes/Actions/.Modules/settings.schema.json",
   "type": "PTE",
   "templateUrl": "https://github.com/spetersenms/AL-Go@alAlertsBuildModes",
-  "templateSha": "5331b3a5609b8749dd30496be419fa14636fcb40",
+  "templateSha": "b2d72a8b2112d6c320d1ad7eab9b577ea53f8acf",
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
