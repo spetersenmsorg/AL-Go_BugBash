@@ -7,6 +7,10 @@
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
   },
+  "rulesetFile": "../rulesets/ruleset.json",
+  "enableCodeCop": true,
+  "enableUICop": true,
+  "trackAlAlertsInGitHub": true,
   "alDoc": {
     "continuousDeployment": true,
     "deployToGitHubPages": false,
