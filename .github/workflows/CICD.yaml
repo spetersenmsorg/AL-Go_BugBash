@@ -50,7 +50,7 @@ jobs:
       trackALAlertsInGitHub: ${{ steps.SetALCodeAnalysisVar.outputs.trackALAlertsInGitHub }}
     steps:
       - name: Dump Workflow Information
-        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@mergequeue
         with:
           shell: powershell
 
@@ -61,13 +61,13 @@ jobs:
 
       - name: Initialize the workflow
         id: init
-        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@mergequeue
         with:
           shell: powershell
 
       - name: Read settings
         id: ReadSettings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
         with:
           shell: powershell
           get: type,powerPlatformSolutionFolder,useGitSubmodules,trackALAlertsInGitHub
@@ -81,7 +81,7 @@ jobs:
       - name: Read submodules token
         id: ReadSubmodulesToken
         if: env.useGitSubmodules != 'false' && env.useGitSubmodules != ''
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -102,7 +102,7 @@ jobs:
 
       - name: Determine Projects To Build
         id: determineProjectsToBuild
-        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@mergequeue
         with:
           shell: powershell
           maxBuildDepth: ${{ env.workflowDepth }}
@@ -115,7 +115,7 @@ jobs:
 
       - name: Determine Delivery Target Secrets
         id: DetermineDeliveryTargetSecrets
-        uses: spetersenms/AL-Go/Actions/DetermineDeliveryTargets@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/DetermineDeliveryTargets@mergequeue
         with:
           shell: powershell
           projectsJson: '${{ steps.determineProjectsToBuild.outputs.ProjectsJson }}'
@@ -123,7 +123,7 @@ jobs:
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -131,7 +131,7 @@ jobs:
 
       - name: Determine Delivery Targets
         id: DetermineDeliveryTargets
-        uses: spetersenms/AL-Go/Actions/DetermineDeliveryTargets@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/DetermineDeliveryTargets@mergequeue
         env:
           Secrets: '${{ steps.ReadSecrets.outputs.Secrets }}'
         with:
@@ -141,7 +141,7 @@ jobs:
 
       - name: Determine Deployment Environments
         id: DetermineDeploymentEnvironments
-        uses: spetersenms/AL-Go/Actions/DetermineDeploymentEnvironments@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/DetermineDeploymentEnvironments@mergequeue
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -157,21 +157,21 @@ jobs:
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: Read settings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
         with:
           shell: powershell
           get: templateUrl
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
           getSecrets: 'ghTokenWorkflow'
 
       - name: Check for updates to AL-Go system files
-        uses: spetersenms/AL-Go/Actions/CheckForUpdates@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/CheckForUpdates@mergequeue
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -225,7 +225,7 @@ jobs:
       - name: Process AL Code Analysis Logs
         id: ProcessALCodeAnalysisLogs
         if: (success() || failure())
-        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@mergequeue
         with:
           shell: powershell
 
@@ -259,13 +259,13 @@ jobs:
           path: '.artifacts'
 
       - name: Read settings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
         with:
           shell: powershell
 
       - name: Determine ArtifactUrl
         id: determineArtifactUrl
-        uses: spetersenms/AL-Go/Actions/DetermineArtifactUrl@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/DetermineArtifactUrl@mergequeue
         with:
           shell: powershell
 
@@ -274,7 +274,7 @@ jobs:
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
 
       - name: Build Reference Documentation
-        uses: spetersenms/AL-Go/Actions/BuildReferenceDocumentation@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/BuildReferenceDocumentation@mergequeue
         with:
           shell: powershell
           artifacts: '.artifacts'
@@ -315,7 +315,7 @@ jobs:
           path: '.artifacts'
 
       - name: Read settings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
         with:
           shell: ${{ matrix.shell }}
           get: type,powerPlatformSolutionFolder
@@ -329,7 +329,7 @@ jobs:
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
         with:
           shell: ${{ matrix.shell }}
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -337,7 +337,7 @@ jobs:
 
       - name: Deploy to Business Central
         id: Deploy
-        uses: spetersenms/AL-Go/Actions/Deploy@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/Deploy@mergequeue
         env:
           Secrets: '${{ steps.ReadSecrets.outputs.Secrets }}'
         with:
@@ -349,7 +349,7 @@ jobs:
 
       - name: Deploy to Power Platform
         if: env.type == 'PTE' && env.powerPlatformSolutionFolder != ''
-        uses: spetersenms/AL-Go/Actions/DeployPowerPlatform@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/DeployPowerPlatform@mergequeue
         env:
           Secrets: '${{ steps.ReadSecrets.outputs.Secrets }}'
         with:
@@ -377,20 +377,20 @@ jobs:
           path: '.artifacts'
 
       - name: Read settings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
         with:
           shell: powershell
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
           getSecrets: '${{ matrix.deliveryTarget }}Context'
 
       - name: Deliver
-        uses: spetersenms/AL-Go/Actions/Deliver@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/Deliver@mergequeue
         env:
           Secrets: '${{ steps.ReadSecrets.outputs.Secrets }}'
         with:
@@ -410,7 +410,7 @@ jobs:
 
       - name: Finalize the workflow
         id: PostProcess
-        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@alAlertsBuildModes
+        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@mergequeue
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:

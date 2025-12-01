@@ -1,8 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/alAlertsBuildModes/Actions/.Modules/settings.schema.json",
+  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/mergequeue/Actions/.Modules/settings.schema.json",
   "type": "PTE",
-  "templateUrl": "https://github.com/spetersenms/AL-Go@alAlertsBuildModes",
-  "templateSha": "b2d72a8b2112d6c320d1ad7eab9b577ea53f8acf",
+  "templateUrl": "https://github.com/spetersenms/AL-Go@mergequeue",
+  "templateSha": "25fc49d2b7a7db2c2fc6bd1fc331c6534683f364",
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
