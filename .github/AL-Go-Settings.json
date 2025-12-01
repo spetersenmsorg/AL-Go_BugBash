@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/mergequeue/Actions/.Modules/settings.schema.json",
   "type": "PTE",
   "templateUrl": "https://github.com/spetersenms/AL-Go@mergequeue",
-  "templateSha": "25fc49d2b7a7db2c2fc6bd1fc331c6534683f364",
+  "templateSha": "ff1c58880a4c5f7fb64b77ca1698c6598ce176d1",
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
