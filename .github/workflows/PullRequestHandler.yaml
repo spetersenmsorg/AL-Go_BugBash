@@ -3,10 +3,9 @@ name: 'Pull Request Build'
 on:
   pull_request_target:
     branches: [ 'main' ]
-  merge_group:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name == 'merge_group' && github.run_id || github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 defaults:
@@ -19,6 +18,7 @@ permissions:
   id-token: write
   pull-requests: read
   security-events: write
+  packages: read
 
 env:
   workflowDepth: 1
@@ -30,7 +30,7 @@ jobs:
     if: (github.event.pull_request.base.repo.full_name != github.event.pull_request.head.repo.full_name) && (github.event_name != 'pull_request')
     runs-on: windows-latest
     steps:
-      - uses: spetersenms/AL-Go/Actions/VerifyPRChanges@mergequeue
+      - uses: spetersenms/AL-Go/Actions/VerifyPRChanges@EnvironmentsCreatedIfNotExist
 
   Initialization:
     needs: [ PregateCheck ]
@@ -48,25 +48,25 @@ jobs:
       trackALAlertsInGitHub: ${{ steps.SetALCodeAnalysisVar.outputs.trackALAlertsInGitHub }}
     steps:
       - name: Dump Workflow Information
-        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@mergequeue
+        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           lfs: true
-          ref: ${{ github.event_name == 'pull_request' && github.sha || github.event_name == 'merge_group' && github.ref || format('refs/pull/{0}/merge', github.event.pull_request.number) }}
+          ref: ${{ github.event_name == 'pull_request' && github.sha || format('refs/pull/{0}/merge', github.event.pull_request.number) }}
 
       - name: Initialize the workflow
         id: init
-        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@mergequeue
+        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read settings
         id: ReadSettings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSettings@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           get: shortLivedArtifactsRetentionDays,trackALAlertsInGitHub
@@ -85,7 +85,7 @@ jobs:
 
       - name: Determine Projects To Build
         id: determineProjectsToBuild
-        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@mergequeue
+        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           maxBuildDepth: ${{ env.workflowDepth }}
@@ -103,7 +103,7 @@ jobs:
     with:
       shell: ${{ matrix.githubRunnerShell }}
       runsOn: ${{ matrix.githubRunner }}
-      checkoutRef: ${{ github.event_name == 'pull_request' && github.sha || github.event_name == 'merge_group' && github.ref || format('refs/pull/{0}/merge', github.event.pull_request.number) }}
+      checkoutRef: ${{ github.event_name == 'pull_request' && github.sha || format('refs/pull/{0}/merge', github.event.pull_request.number) }}
       project: ${{ matrix.project }}
       projectName: ${{ matrix.projectName }}
       buildMode: ${{ matrix.buildMode }}
@@ -118,17 +118,17 @@ jobs:
 
   CodeAnalysisUpload:
     needs: [ Initialization, Build ]
-    if: (!cancelled()) && (needs.Initialization.outputs.trackALAlertsInGitHub == 'True') && (github.event_name != 'merge_group')
+    if: (!cancelled()) && (needs.Initialization.outputs.trackALAlertsInGitHub == 'True')
     runs-on: [ windows-latest ]
     name: Code Analysis Processing
     steps:
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           ref: ${{ format('refs/pull/{0}/head', github.event.pull_request.number) }}
 
       - name: Download artifacts - ErrorLogs
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         if: (success() || failure())
         with:
           pattern: '*-*ErrorLogs-*'
@@ -138,7 +138,7 @@ jobs:
       - name: Process AL Code Analysis Logs
         id: ProcessALCodeAnalysisLogs
         if: (success() || failure())
-        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@mergequeue
+        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
@@ -159,7 +159,7 @@ jobs:
     steps:
       - name: Pull Request Status Check
         id: PullRequestStatusCheck
-        uses: spetersenms/AL-Go/Actions/PullRequestStatusCheck@mergequeue
+        uses: spetersenms/AL-Go/Actions/PullRequestStatusCheck@EnvironmentsCreatedIfNotExist
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -167,7 +167,7 @@ jobs:
 
       - name: Finalize the workflow
         id: PostProcess
-        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@mergequeue
+        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@EnvironmentsCreatedIfNotExist
         if: success() || failure()
         env:
           GITHUB_TOKEN: ${{ github.token }}
