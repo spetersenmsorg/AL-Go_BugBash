@@ -4,5 +4,7 @@
   "appFolders": [],
   "testFolders": [],
   "bcptTestFolders": [],
-  "artifact": "//26.0//latest"
+  "artifact": "//26.0//latest",
+  "useCompilerFolder": false,
+  "doNotRunTests": false
 }
