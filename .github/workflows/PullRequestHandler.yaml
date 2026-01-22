@@ -30,7 +30,7 @@ jobs:
     if: (github.event.pull_request.base.repo.full_name != github.event.pull_request.head.repo.full_name) && (github.event_name != 'pull_request')
     runs-on: windows-latest
     steps:
-      - uses: spetersenms/AL-Go/Actions/VerifyPRChanges@EnvironmentsCreatedIfNotExist
+      - uses: spetersenms/AL-Go/Actions/VerifyPRChanges@CodeCoverage
 
   Initialization:
     needs: [ PregateCheck ]
@@ -48,7 +48,7 @@ jobs:
       trackALAlertsInGitHub: ${{ steps.SetALCodeAnalysisVar.outputs.trackALAlertsInGitHub }}
     steps:
       - name: Dump Workflow Information
-        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@EnvironmentsCreatedIfNotExist
+        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@CodeCoverage
         with:
           shell: powershell
 
@@ -60,13 +60,13 @@ jobs:
 
       - name: Initialize the workflow
         id: init
-        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@EnvironmentsCreatedIfNotExist
+        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@CodeCoverage
         with:
           shell: powershell
 
       - name: Read settings
         id: ReadSettings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@EnvironmentsCreatedIfNotExist
+        uses: spetersenms/AL-Go/Actions/ReadSettings@CodeCoverage
         with:
           shell: powershell
           get: shortLivedArtifactsRetentionDays,trackALAlertsInGitHub
@@ -85,7 +85,7 @@ jobs:
 
       - name: Determine Projects To Build
         id: determineProjectsToBuild
-        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@EnvironmentsCreatedIfNotExist
+        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@CodeCoverage
         with:
           shell: powershell
           maxBuildDepth: ${{ env.workflowDepth }}
@@ -138,7 +138,7 @@ jobs:
       - name: Process AL Code Analysis Logs
         id: ProcessALCodeAnalysisLogs
         if: (success() || failure())
-        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@EnvironmentsCreatedIfNotExist
+        uses: spetersenms/AL-Go/Actions/ProcessALCodeAnalysisLogs@CodeCoverage
         with:
           shell: powershell
 
@@ -159,7 +159,7 @@ jobs:
     steps:
       - name: Pull Request Status Check
         id: PullRequestStatusCheck
-        uses: spetersenms/AL-Go/Actions/PullRequestStatusCheck@EnvironmentsCreatedIfNotExist
+        uses: spetersenms/AL-Go/Actions/PullRequestStatusCheck@CodeCoverage
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -167,7 +167,7 @@ jobs:
 
       - name: Finalize the workflow
         id: PostProcess
-        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@EnvironmentsCreatedIfNotExist
+        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@CodeCoverage
         if: success() || failure()
         env:
           GITHUB_TOKEN: ${{ github.token }}
