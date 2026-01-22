@@ -1,8 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/mergequeue/Actions/.Modules/settings.schema.json",
+  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/EnvironmentsCreatedIfNotExist/Actions/.Modules/settings.schema.json",
   "type": "PTE",
-  "templateUrl": "https://github.com/spetersenms/AL-Go@mergequeue",
-  "templateSha": "b1812b5827e90f143d249b69513b70e45f385562",
+  "templateUrl": "https://github.com/spetersenms/AL-Go@EnvironmentsCreatedIfNotExist",
+  "templateSha": "27a36fb77f1c0812db1c90d70fcc7cb1d207a480",
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
