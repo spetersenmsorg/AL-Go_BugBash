@@ -50,28 +50,28 @@ jobs:
       telemetryScopeJson: ${{ steps.init.outputs.telemetryScopeJson }}
     steps:
       - name: Dump Workflow Information
-        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@mergequeue
+        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Initialize the workflow
         id: init
-        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@mergequeue
+        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read settings
         id: ReadSettings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSettings@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -90,7 +90,7 @@ jobs:
             Write-Host "AdminCenterApiCredentials not provided, initiating Device Code flow"
             $ALGoHelperPath = "$([System.IO.Path]::GetTempFileName()).ps1"
             $webClient = New-Object System.Net.WebClient
-            $webClient.DownloadFile('https://raw.githubusercontent.com/spetersenms/AL-Go/mergequeue/Actions/AL-Go-Helper.ps1', $ALGoHelperPath)
+            $webClient.DownloadFile('https://raw.githubusercontent.com/spetersenms/AL-Go/EnvironmentsCreatedIfNotExist/Actions/AL-Go-Helper.ps1', $ALGoHelperPath)
             . $ALGoHelperPath
             DownloadAndImportBcContainerHelper
             $authContext = New-BcAuthContext -includeDeviceLogin -deviceLoginTimeout ([TimeSpan]::FromSeconds(0))
@@ -109,16 +109,16 @@ jobs:
       deviceCode: ${{ needs.Initialization.outputs.deviceCode }}
     steps:
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Read settings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSettings@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -137,7 +137,7 @@ jobs:
           Add-Content -Encoding UTF8 -Path $env:GITHUB_OUTPUT -value "adminCenterApiCredentials=$adminCenterApiCredentials"
 
       - name: Create Development Environment
-        uses: spetersenms/AL-Go/Actions/CreateDevelopmentEnvironment@mergequeue
+        uses: spetersenms/AL-Go/Actions/CreateDevelopmentEnvironment@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           token: ${{ steps.ReadSecrets.outputs.TokenForPush }}
@@ -149,7 +149,7 @@ jobs:
 
       - name: Finalize the workflow
         if: always()
-        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@mergequeue
+        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@EnvironmentsCreatedIfNotExist
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:

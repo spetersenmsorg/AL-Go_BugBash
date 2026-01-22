@@ -78,35 +78,35 @@ jobs:
       telemetryScopeJson: ${{ steps.init.outputs.telemetryScopeJson }}
     steps:
       - name: Dump Workflow Information
-        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@mergequeue
+        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Initialize the workflow
         id: init
-        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@mergequeue
+        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read settings
         id: ReadSettings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSettings@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           get: templateUrl,repoName,type,powerPlatformSolutionFolder
 
       - name: Validate Workflow Input
         if: ${{ github.event_name == 'workflow_dispatch' }}
-        uses: spetersenms/AL-Go/Actions/ValidateWorkflowInput@mergequeue
+        uses: spetersenms/AL-Go/Actions/ValidateWorkflowInput@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -115,12 +115,12 @@ jobs:
 
       - name: Determine Projects
         id: determineProjects
-        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@mergequeue
+        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Check for updates to AL-Go system files
-        uses: spetersenms/AL-Go/Actions/CheckForUpdates@mergequeue
+        uses: spetersenms/AL-Go/Actions/CheckForUpdates@EnvironmentsCreatedIfNotExist
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -130,7 +130,7 @@ jobs:
           downloadLatest: true
 
       - name: Determine artifacts for release
-        uses: spetersenms/AL-Go/Actions/DetermineArtifactsForRelease@mergequeue
+        uses: spetersenms/AL-Go/Actions/DetermineArtifactsForRelease@EnvironmentsCreatedIfNotExist
         id: determineArtifactsForRelease
         with:
           shell: powershell
@@ -141,7 +141,7 @@ jobs:
 
       - name: Prepare release notes
         id: createreleasenotes
-        uses: spetersenms/AL-Go/Actions/CreateReleaseNotes@mergequeue
+        uses: spetersenms/AL-Go/Actions/CreateReleaseNotes@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           buildVersion: ${{ github.event.inputs.buildVersion }}
@@ -187,16 +187,16 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Read settings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSettings@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -240,7 +240,7 @@ jobs:
             });
 
       - name: Deliver to NuGet
-        uses: spetersenms/AL-Go/Actions/Deliver@mergequeue
+        uses: spetersenms/AL-Go/Actions/Deliver@EnvironmentsCreatedIfNotExist
         if: ${{ fromJson(steps.ReadSecrets.outputs.Secrets).nuGetContext != '' }}
         env:
           Secrets: '${{ steps.ReadSecrets.outputs.Secrets }}'
@@ -253,7 +253,7 @@ jobs:
           atypes: 'Apps,TestApps'
 
       - name: Deliver to Storage
-        uses: spetersenms/AL-Go/Actions/Deliver@mergequeue
+        uses: spetersenms/AL-Go/Actions/Deliver@EnvironmentsCreatedIfNotExist
         if: ${{ fromJson(steps.ReadSecrets.outputs.Secrets).storageContext != '' }}
         env:
           Secrets: '${{ steps.ReadSecrets.outputs.Secrets }}'
@@ -271,7 +271,7 @@ jobs:
     runs-on: [ windows-latest ]
     steps:
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           ref: '${{ needs.createRelease.outputs.commitish }}'
 
@@ -294,16 +294,16 @@ jobs:
     runs-on: [ windows-latest ]
     steps:
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Read settings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSettings@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
 
       - name: Read secrets
         id: ReadSecrets
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@mergequeue
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -311,7 +311,7 @@ jobs:
           useGhTokenWorkflowForPush: '${{ github.event.inputs.useGhTokenWorkflow }}'
 
       - name: Update Version Number
-        uses: spetersenms/AL-Go/Actions/IncrementVersionNumber@mergequeue
+        uses: spetersenms/AL-Go/Actions/IncrementVersionNumber@EnvironmentsCreatedIfNotExist
         with:
           shell: powershell
           token: ${{ steps.ReadSecrets.outputs.TokenForPush }}
@@ -325,11 +325,11 @@ jobs:
     runs-on: [ windows-latest ]
     steps:
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Finalize the workflow
         id: PostProcess
-        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@mergequeue
+        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@EnvironmentsCreatedIfNotExist
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
