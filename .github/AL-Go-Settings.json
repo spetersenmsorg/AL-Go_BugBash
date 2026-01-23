@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/CodeCoverage/Actions/.Modules/settings.schema.json",
   "type": "PTE",
   "templateUrl": "https://github.com/spetersenms/AL-Go@CodeCoverage",
-  "templateSha": "afe4c12100d84bb837216996412bd563847fe611",
+  "templateSha": "d1bcd1c775e6591ac5d7c11435b0b20f3b1d1b81",
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"

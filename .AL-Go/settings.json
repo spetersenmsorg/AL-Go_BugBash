@@ -6,6 +6,6 @@
   "bcptTestFolders": [],
   "artifact": "//26.0//latest",
   "useCompilerFolder": false,
-  "doNotPublishApps":false,
-  "doNotRunTests":false
+  "doNotPublishApps": false,
+  "doNotRunTests": false
 }
