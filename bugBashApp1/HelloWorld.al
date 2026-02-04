@@ -47,4 +47,7 @@ pageextension 55000 CustomerListExt extends "Customer List"
         Counter := Counter + 2;
         Message('Counter value: %1', Counter);
     end;
+
+    var
+        InvalidDate : Date;
 }
