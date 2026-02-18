@@ -7,6 +7,5 @@
   "artifact": "//27.0//latest",
   "useCompilerFolder": false,
   "doNotPublishApps": false,
-  "doNotRunTests": false,
-  "githubRunnerShell": "pwsh"
+  "doNotRunTests": false
 }
