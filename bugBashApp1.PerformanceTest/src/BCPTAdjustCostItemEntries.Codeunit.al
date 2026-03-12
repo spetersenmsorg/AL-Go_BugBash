@@ -13,7 +13,7 @@ codeunit 50023 "BCPT Adjust Cost Item Entries"
     var
         AdjustCostItemEntries: Report "Adjust Cost - Item Entries";
     begin
-        //Adjust and post to GL
+        //Adjust and post to GL 123
         AdjustCostItemEntries.SetPostToGL(true);
         AdjustCostItemEntries.UseRequestPage(false);
         AdjustCostItemEntries.Run();
