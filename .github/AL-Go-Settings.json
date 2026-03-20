@@ -1,8 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/CodeCoverage/Actions/.Modules/settings.schema.json",
+  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/publishToEnvironmentErrorPreference/Actions/.Modules/settings.schema.json",
   "type": "PTE",
-  "templateUrl": "https://github.com/spetersenms/AL-Go@CodeCoverage",
-  "templateSha": "d1bcd1c775e6591ac5d7c11435b0b20f3b1d1b81",
+  "templateUrl": "https://github.com/spetersenms/AL-Go@publishToEnvironmentErrorPreference",
+  "templateSha": "328f555bb99320c228c48e74c94f6259cb6d3cfd",
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"

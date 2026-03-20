@@ -31,24 +31,24 @@ jobs:
       telemetryScopeJson: ${{ steps.init.outputs.telemetryScopeJson }}
     steps:
       - name: Dump Workflow Information
-        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@CodeCoverage
+        uses: spetersenms/AL-Go/Actions/DumpWorkflowInfo@publishToEnvironmentErrorPreference
         with:
           shell: powershell
 
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           lfs: true
 
       - name: Initialize the workflow
         id: init
-        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@CodeCoverage
+        uses: spetersenms/AL-Go/Actions/WorkflowInitialize@publishToEnvironmentErrorPreference
         with:
           shell: powershell
 
       - name: Read settings
         id: ReadSettings
-        uses: spetersenms/AL-Go/Actions/ReadSettings@CodeCoverage
+        uses: spetersenms/AL-Go/Actions/ReadSettings@publishToEnvironmentErrorPreference
         with:
           shell: powershell
           get: useGitSubmodules,shortLivedArtifactsRetentionDays
@@ -56,7 +56,7 @@ jobs:
       - name: Read submodules token
         id: ReadSubmodulesToken
         if: env.useGitSubmodules != 'false' && env.useGitSubmodules != ''
-        uses: spetersenms/AL-Go/Actions/ReadSecrets@CodeCoverage
+        uses: spetersenms/AL-Go/Actions/ReadSecrets@publishToEnvironmentErrorPreference
         with:
           shell: powershell
           gitHubSecrets: ${{ toJson(secrets) }}
@@ -64,7 +64,7 @@ jobs:
 
       - name: Checkout Submodules
         if: env.useGitSubmodules != 'false' && env.useGitSubmodules != ''
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           lfs: true
           submodules: ${{ env.useGitSubmodules }}
@@ -78,7 +78,7 @@ jobs:
 
       - name: Determine Projects To Build
         id: determineProjectsToBuild
-        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@CodeCoverage
+        uses: spetersenms/AL-Go/Actions/DetermineProjectsToBuild@publishToEnvironmentErrorPreference
         with:
           shell: powershell
           maxBuildDepth: ${{ env.workflowDepth }}
@@ -111,11 +111,11 @@ jobs:
     runs-on: [ windows-latest ]
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Finalize the workflow
         id: PostProcess
-        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@CodeCoverage
+        uses: spetersenms/AL-Go/Actions/WorkflowPostProcess@publishToEnvironmentErrorPreference
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
