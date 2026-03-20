@@ -11,6 +11,7 @@
   "enableCodeCop": true,
   "enableUICop": true,
   "trackAlAlertsInGitHub": true,
+  "noMatchingEnvironmentsAction": "warning",
   "alDoc": {
     "continuousDeployment": true,
     "deployToGitHubPages": false,
