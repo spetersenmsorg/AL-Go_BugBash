@@ -1,8 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/spetersenms/AL-Go/publishToEnvironmentErrorPreference/Actions/.Modules/settings.schema.json",
+  "$schema": "https://raw.githubusercontent.com/microsoft/AL-Go/39fa5591e01f7569384bba8cad40cabdb5618a01/Actions/.Modules/settings.schema.json",
   "type": "PTE",
-  "templateUrl": "https://github.com/spetersenms/AL-Go@publishToEnvironmentErrorPreference",
-  "templateSha": "328f555bb99320c228c48e74c94f6259cb6d3cfd",
+  "templateUrl": "https://github.com/microsoft/AL-Go-PTE@preview",
+  "templateSha": "8fe0216dffe00a150ed8c8c76fc69072b79467a5",
   "DeployTotest": {
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
