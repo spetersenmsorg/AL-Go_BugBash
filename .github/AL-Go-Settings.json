@@ -7,6 +7,9 @@
     "BuildMode": "default",
     "EnvironmentName": "AL-Go-Demo-Test"
   },
+  "useSeparateTestAction": true,
+  "doNotRunTests": false,
+  "doNotPublishApps": false,
   "rulesetFile": "rulesets/ruleset.json",
   "enableCodeCop": true,
   "enableUICop": true,
