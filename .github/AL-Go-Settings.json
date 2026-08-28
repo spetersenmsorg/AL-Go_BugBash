@@ -3,10 +3,6 @@
   "type": "PTE",
   "templateUrl": "https://github.com/spetersenms/AL-Go@spetersen/separateTestAction",
   "templateSha": "b733a9483f7420cffd717b619c97c3b8ba17098a",
-  "DeployTotest": {
-    "BuildMode": "default",
-    "EnvironmentName": "AL-Go-Demo-Test"
-  },
   "useSeparateTestAction": true,
   "doNotRunTests": false,
   "doNotPublishApps": false,
